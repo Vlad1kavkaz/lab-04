@@ -33,4 +33,4 @@ jobs:
     - name: Build HelloWorld
       run: |
         cd hello_world_application/build
-        cmake --build
+        cmake --buildc
