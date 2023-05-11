@@ -6,31 +6,22 @@ on:
  pull_request:
   branches: [master]
 
-jobs:
-  build_Linux:
-    runs-on: ubuntu-latest
+jobs: 
+ build_Windows:
 
-    steps:
-    - uses: actions/checkout@v3
-      
-    - name: Configure Solver
-      run: |
-        mkdir -p solver_application/build
-        cd solver_application/build
-        cmake ../
-        
-    - name: Build Solver
-      run: |
-        cd solver_application/build
-        cmake --build .
-        
-    - name: Configure HelloWorld
-      run: |
-        mkdir -p hello_world_application/build
-        cd hello_world_application/build
-        cmake ../
-        
-    - name: Build HelloWorld
-      run: |
-        cd hello_world_application/build
-        cmake --build
+  runs-on: windows-latest
+
+  steps:
+  - uses: actions/checkout@v3
+
+  - name: Configure Solver
+    run: cmake ${{github.workspace}}/solver_application/ -B ${{github.workspace}}/solver_application/build
+
+  - name: Build Solver
+    run: cmake --build ${{github.workspace}}/solver_application/build
+
+  - name: Configure HelloWorld
+    run: cmake ${{github.workspace}}/hello_world_application/ -B ${{github.workspace}}/hello_world_application/build
+
+  - name: Build HelloWorld
+    run: cmake --build ${{github.workspace}}/hello_world_application/build
